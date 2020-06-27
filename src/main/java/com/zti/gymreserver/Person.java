@@ -1,28 +1,63 @@
 package com.zti.gymreserver;
 
-import javax.persistence.*;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+import java.sql.Timestamp;
 
-@Entity
-public class Person{
+@MappedSuperclass
+public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    private String lname;
-    private String fname;
+    private String name;
+    private String surname;
+    private String password;
+    private Timestamp createDate;
+    private Timestamp lastLogin;
 
-    public String getLname() {
-        return lname;
+    public long getId() {
+        return id;
     }
 
-    public String getFname() {
-        return fname;
+    public String getName() {
+        return name;
     }
 
-    public void setLname(String name) {
-        this.lname = name;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setFname(String username) {
-        this.fname = username;
+    public String getPassword() {
+        return password;
+    }
+
+    public Timestamp getCreateDate() {
+        return createDate;
+    }
+
+    public Timestamp getLastLogin() {
+        return lastLogin;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSurname(String username) {
+        this.surname = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setCreateDate(Timestamp createDate) {
+        this.createDate = createDate;
+    }
+
+    public void setLastLogin(Timestamp lastLogin) {
+        this.lastLogin = lastLogin;
     }
 }

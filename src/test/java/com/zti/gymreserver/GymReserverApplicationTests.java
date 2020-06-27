@@ -1,17 +1,15 @@
 package com.zti.gymreserver;
 
+import com.zti.gymreserver.user.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.sql.Connection;
-import java.sql.SQLException;
 
 @SpringBootTest
 class GymReserverApplicationTests {
 
     @Autowired
-    PersonRepository repository;
+    UserRepository repository;
 
     @Test
     void contextLoads() {

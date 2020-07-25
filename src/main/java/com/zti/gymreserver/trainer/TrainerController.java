@@ -8,6 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/trainer")
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class TrainerController {
 
     @Autowired

@@ -1,12 +1,14 @@
 import React from 'react';
 import '../styles/App.css'
 import { Container } from 'react-bootstrap'
+import UserPage from "../pages/UserPage";
 
 function App() {
   return (
       <Container>
         <div className="App">
-            <h1>App div</h1>
+            {/*TODO in future page based on logged user*/}
+            <UserPage />
         </div>
       </Container>
   );

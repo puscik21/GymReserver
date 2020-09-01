@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles/App.css'
-import {Container} from 'react-bootstrap'
+import { Container } from 'react-bootstrap'
 import UserPage from "../pages/UserPage";
 
 function App() {

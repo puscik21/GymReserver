@@ -4,7 +4,7 @@ import UserPage from "./pages/UserPage";
 import TrainersPage from "./pages/TrainersPage";
 import { BrowserRouter, Route } from 'react-router-dom';
 
-export default function App() {
+export default function App_old() {
     return (
         <BrowserRouter>
             <div className="App">

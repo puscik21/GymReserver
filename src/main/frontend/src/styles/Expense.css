@@ -1,0 +1,52 @@
+/* .expense {
+    padding: 3em;
+    padding-top: 1em;
+    font-weight: 500;
+    color: #333333;
+} */
+
+.alignLeft {
+    float: left;
+}
+.alignRight {
+    float: right;
+}
+
+progress {    
+    appearance: none;
+
+    background: #333333;
+    border-radius: 1em;
+    height: 1.5em;
+    width: 50%;
+    padding: 3px;
+}
+
+progress::-webkit-progress-value {
+    background: rgb(17, 169, 189);
+}
+
+/*#lastExpensesForm {*/
+/*    margin-top: 5em;*/
+/*    align-items: center;*/
+/*    clear: both;*/
+/*}*/
+
+/*#lastExpensesText {*/
+/*    height: 40px;*/
+/*    font-size: 15px;*/
+/*    font-weight: 600;*/
+/*}*/
+
+/*#lastExpensesButton {*/
+/*    cursor: pointer;*/
+/*    height: 40px;*/
+/*    margin-left: 20px;*/
+/*    width: 100px;*/
+/*    border-radius: 10%;*/
+/*    border: 1px solid lightgrey;*/
+/*    outline: 0;*/
+/*    background-color: #333333;*/
+/*    color: white;*/
+/*    font-weight: 600;*/
+/*}*/

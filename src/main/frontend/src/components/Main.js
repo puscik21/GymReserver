@@ -21,6 +21,7 @@ function Main() {
                     <Router>
                         <Switch>
                             <Route exact path="/main" component={App} />
+                            <Route exact path="/main/:id" component={App} />
                             <Route exact path="/main/about" component={About} />
                             <Route path="/main/contact" component={Contact} />
                             <Route path="/main/slides" component={Slides} />

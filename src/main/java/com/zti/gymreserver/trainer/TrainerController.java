@@ -20,8 +20,8 @@ public class TrainerController {
     }
 
     @GetMapping(value = "{id}")
-    public Trainer getTrainer(@PathVariable long id) {
-        return repository.findById(id).orElse(null);
+    public List<Trainer> getTrainer(@PathVariable long id) {
+        return List.of(repository.findById(id).orElse(new Trainer()));
     }
 
     @RequestMapping(method = RequestMethod.POST)

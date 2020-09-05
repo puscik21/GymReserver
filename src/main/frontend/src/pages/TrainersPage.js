@@ -1,60 +1,96 @@
-import React, {useState, Component, useEffect} from 'react';
-import Header from "../components/Header";
-import axios from 'axios';
-import {Link, Route} from 'react-router-dom'
-import UserPage from "./UserPage";
+import React, {useState, Component, useEffect} from 'react'
+import PropTypes from 'prop-types'
+import axios from 'axios'
+import Trainer from "../components/Trainer"
+import {Alert, Container, Row, Col} from "react-bootstrap"
+import {useParams} from "react-router-dom";
+import ExtendedTrainer from "../components/ExtendedTrainer";
 
-export default class TrainersPage extends Component {
-    render() {
-        return (
-            <div>
-                <Header title={"Trainers"} />
-                <Profiles userId={this.props.userId}/>
-            </div>
-        )
-    }
-}
+export default function TrainersPage() {
+    const [usersProfiles, setUsersProfiles] = useState(null)
+    const [userData, setUserData] = useState([])
+    let {id} = useParams()
 
-const Profiles = (props) => {
-    const [profiles, setProfiles] = useState([]);
-
+    // first loading - user data load
     useEffect(() => {
-        getData();
-    }, []);
-
-    const getData = () => {
-        let path = 'http://localhost:8080/trainer/';
+        if (id == null) {
+            id = ""
+        }
+        let path = 'http://localhost:8080/trainer/' + id
         axios.get(path)
             .then(res => {
-                console.log(res);
-                setProfiles(res.data);
-            });
+                setUserData(res.data)
+            })
+    }, [id])
+
+    useEffect(() => {
+
+        let readyProfiles
+        if (userData.length === 1) { // trainer profile case
+            readyProfiles = prepareSingleTrainerProfile()
+        } else {
+            readyProfiles = prepareProfilesOfTrainers()
+        }
+
+        setUsersProfiles(readyProfiles)
+    }, [userData]);
+
+    const prepareSingleTrainerProfile = () => {
+        const profiles = userData.map(user => {
+            const {id, name, surname, password, createDate, lastLogin} = user
+            return <ExtendedTrainer key={id} userId={id} name={name} surname={surname} password={password} createDate={createDate}
+                            lastLogin={lastLogin}/>
+        })
+
+        let readyProfiles = []
+        readyProfiles.push(profiles[0])
+        return readyProfiles
     }
 
-    // return (
-    //     <UserData profile={profile}/>
-    // )
+    const prepareProfilesOfTrainers = () => {
+        let rowArr = []
+        let count = 0
+        let readyProfiles
 
-    return profiles.map((profile, index) => {
-        return (
-            // <TrainerData profile={profile}/>
-            <Route path="/trainers/" render={props => (
-                <React.Fragment>
-                    <TrainerData profile={profile} index={1}/> {/* TODO in future based on logged user */}
-                </React.Fragment>
-            )}/>
-        )
-    })
-}
+        const profiles = userData.map(user => {
+            const {id, name, surname, password, createDate, lastLogin} = user
+            return <Trainer key={id} userId={id} name={name} surname={surname} password={password} createDate={createDate}
+                            lastLogin={lastLogin}/>
+        })
 
-const TrainerData = (props) => {
-    const {profile, index} = props;
+        profiles.forEach(() => {
+            if (count % 2 === 1) {
+                rowArr.push([profiles[count - 1], profiles[count]])
+            } else if (count === profiles.length - 1) {
+                rowArr.push([profiles[count]])
+            }
+            count++
+        })
+
+        // TODO keys of rows - this can cause a bug if number of trainers > 4
+        readyProfiles = rowArr.map(profile => {
+            if (profile.length === 2) {
+                return (
+                    <Row key={1}>
+                        <Col>{profile[0]}</Col>
+                        <Col>{profile[1]}</Col>
+                    </Row>
+                )
+            } else {
+                return (
+                    <Row key={2}>
+                        <Col>{profile[0]}</Col>
+                    </Row>
+                )
+            }
+        })
+        return readyProfiles
+    }
+
     return (
-        <div>
-            <h1><Link to={index} >{profile.name}</Link></h1>
-            <p>{profile.id}</p>
-            <p>{profile.surname}</p>
-            <p>{profile.createDate}</p>
-        </div>
+        <Container>
+            {usersProfiles}
+        </Container>
+        // {/*<Alert variant='warning'>This is a alert — check it out!</Alert>*/}
     )
 }

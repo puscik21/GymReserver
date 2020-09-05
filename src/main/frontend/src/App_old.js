@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-import UserPage from "./pages/UserPage";
 import TrainersPage from "./pages/TrainersPage";
+import UsersPage from "./pages/UsersPage";
 import { BrowserRouter, Route } from 'react-router-dom';
 
 export default function App_old() {
@@ -10,13 +10,13 @@ export default function App_old() {
             <div className="App">
                 <Route exact path="/" render={props => (
                     <React.Fragment>
-                        <UserPage userId={1}/> {/* TODO in future based on logged user */}
+                        <TrainersPage userId={1}/> {/* TODO in future based on logged user */}
                     </React.Fragment>
                 )}/>
-                {/*<Route path="/trainers" component={ TrainersPage } />*/}
+                {/*<Route path="/trainers" component={ UsersPage } />*/}
                 <Route path="/trainers" render={props => (
                     <React.Fragment>
-                        <TrainersPage />
+                        <UsersPage />
                     </React.Fragment>
                 )}/>
             </div>

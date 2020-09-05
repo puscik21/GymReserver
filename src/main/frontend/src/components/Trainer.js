@@ -5,14 +5,20 @@ import Header from "./Header";
 import styled from 'styled-components'
 
 const Styles = styled.div`
-    .jumbo {
+    .link {
         cursor: pointer;
         text-decoration: none;
         color: inherit;
     }
+    
+    .jumbo {
+      &:hover {
+        background: #aaa;
+      }
+    }
 `;
 
-function User(props) {
+function Trainer(props) {
     const {userId, name, surname, password, createDate, lastLogin} = props
     let location = useLocation()
     const {id} = useParams()
@@ -20,8 +26,8 @@ function User(props) {
 
     return (
         <Styles>
-            <Link to={userLink} className="jumbo">
-                <Jumbotron>
+            <Link to={userLink} className="link">
+                <Jumbotron className="jumbo">
                     <Container>
                         <Header title={name}/>
                         <p>{surname}</p>
@@ -33,4 +39,4 @@ function User(props) {
     )
 }
 
-export default User
+export default Trainer

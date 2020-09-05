@@ -9,7 +9,6 @@ import Footer from "./Footer";
 import {Layout} from "./Layout";
 import {Jumbotron} from "./Jumbotron";
 import {NavigationBar} from "./NavigationBar";
-import UserPage from "../pages/UserPage";
 
 function Main() {
     return(

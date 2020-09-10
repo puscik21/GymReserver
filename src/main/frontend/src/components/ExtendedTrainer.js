@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react'
 import {Link, useLocation, useParams} from "react-router-dom"
-import {Form, InputGroup, FormControl, Button, Container, Jumbotron, Alert, Image, Row, Col} from 'react-bootstrap'
+import {Form, InputGroup, FormControl, Button, Container, Jumbotron, Alert, Image, Row, Col, Modal} from 'react-bootstrap'
 import Header from "./Header";
 import styled from 'styled-components'
+import TrainingRegistrationPage from "./TrainingRegistrationPage";
 
 const Styles = styled.div`
   .about {
@@ -26,15 +27,26 @@ function ExtendedTrainer(props) {
     const {userId, name, surname, password, createDate, lastLogin} = props
     let location = useLocation()
     const {id} = useParams()
-    const userLink = "/main/" + userId
-    const avatarLink = "https://avatars.dicebear.com/api/avataaars/" + userId + ".svg?options[accessoriesChance]=0&options[top][]=shortHair"
+    const userLink = "/main/trainers/" + userId
+    const [showRegisterPopup, setShowRegisterPopup] = useState(false)
+
+    const getAvatarOption = (name, value) => {
+        return "&options[" + name + "][]=" + value
+    }
+
+    const avatarLink = "https://avatars.dicebear.com/api/avataaars/" + userId + ".svg?options[accessoriesChance]=0&options[top][]=shortHair" +
+        getAvatarOption("mouth", "smile")
+
+    const showRegistrationMenu = () => {
+        setShowRegisterPopup(true)
+    }
 
     return (
         <Styles>
             <Jumbotron>
                 <Container>
                     <Row>
-                        <Link to="/main/" className="link">
+                        <Link to="/main/trainers/" className="link">
                             <Button className="backButton" variant="secondary" size="md">Back</Button>
                         </Link>
                     </Row>
@@ -66,7 +78,25 @@ function ExtendedTrainer(props) {
                                 nulla accumsan, et vestibulum lectus condimentum.</p>
                         </Col>
                     </Row>
-                    <Button className="registerButton" variant="dark" size="lg">Register training</Button>
+                    <Button onClick={showRegistrationMenu} className="registerButton" variant="dark" size="lg">Register training</Button>
+
+                    <Modal
+                        size="lg"
+                        // show={showRegisterPopup}
+                        show={true}
+                        onHide={() => setShowRegisterPopup(false)}
+                        aria-labelledby="example-modal-sizes-title-lg"
+                    >
+                        <Modal.Header closeButton>
+                            <Modal.Title id="example-modal-sizes-title-lg">
+                                Large Modal
+                            </Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <TrainingRegistrationPage />
+                        </Modal.Body>
+                    </Modal>
+
                 </Container>
             </Jumbotron>
         </Styles>

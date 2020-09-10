@@ -22,7 +22,7 @@ function Trainer(props) {
     const {userId, name, surname, password, createDate, lastLogin} = props
     let location = useLocation()
     const {id} = useParams()
-    const userLink = "/main/" + userId
+    const userLink = "/main/trainers/" + userId
 
     return (
         <Styles>

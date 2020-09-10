@@ -2,7 +2,6 @@ import React, {useState, Component, useEffect} from 'react';
 import Header from "../components/Header";
 import axios from 'axios';
 import {Link, Route} from 'react-router-dom'
-import TrainersPage from "./TrainersPage";
 
 export default class UsersPage extends Component {
     render() {

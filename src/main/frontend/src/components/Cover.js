@@ -136,7 +136,7 @@ function Cover() {
                             edit the text, and add your own fullscreen background photo to make it your own.</p>
                         <p className="lead">
                             <Button variant="light">
-                                <Nav.Link href="/main" style={{color: '#333', fontWeight: '500'}}>Home</Nav.Link>
+                                <Nav.Link href="/main/trainers" style={{color: '#333', fontWeight: '500'}}>Home</Nav.Link>
                             </Button>
                         </p>
                     </main>

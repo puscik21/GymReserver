@@ -24,6 +24,16 @@ public class ReservationController {
         return repository.findById(id).orElse(null);
     }
 
+    @GetMapping(value = "/trainer/{id}")
+    public List<Reservation> getTrainerReservations(@PathVariable long id) {
+        return repository.getTrainerReservations(id);
+    }
+
+    @GetMapping(value = "/user/{id}")
+    public List<Reservation> getUserReservations(@PathVariable long id) {
+        return repository.getUserReservations(id);
+    }
+
     @RequestMapping(method = RequestMethod.POST)
     public void addReservation(@RequestBody Reservation reservation) {
         reservation.setCreateDate(new Timestamp(System.currentTimeMillis()));

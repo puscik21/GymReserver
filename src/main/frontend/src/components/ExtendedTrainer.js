@@ -79,26 +79,26 @@ function ExtendedTrainer(props) {
                         </Col>
                     </Row>
                     <Button onClick={showRegistrationMenu} className="registerButton" variant="dark" size="lg">Register training</Button>
-
-                    <Modal
-                        size="lg"
-                        // show={showRegisterPopup}
-                        show={true}
-                        onHide={() => setShowRegisterPopup(false)}
-                        aria-labelledby="example-modal-sizes-title-lg"
-                    >
-                        <Modal.Header closeButton>
-                            <Modal.Title id="example-modal-sizes-title-lg">
-                                Large Modal
-                            </Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <TrainingRegistrationPage />
-                        </Modal.Body>
-                    </Modal>
-
                 </Container>
             </Jumbotron>
+            <Modal
+                className="modal-90w"
+                size="xl"
+                dialogClassName="modal-90w"
+                // show={showRegisterPopup}
+                show={true}
+                onHide={() => setShowRegisterPopup(false)}
+                aria-labelledby="example-modal-sizes-title-xl"
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title id="example-modal-sizes-title-xl">
+                        Register for training
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <TrainingRegistrationPage />
+                </Modal.Body>
+            </Modal>
         </Styles>
     )
 }

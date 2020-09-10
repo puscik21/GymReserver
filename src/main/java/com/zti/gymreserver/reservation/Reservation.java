@@ -15,6 +15,8 @@ public class Reservation {
     private int duration;
     private Timestamp createDate;
     private Timestamp date;
+    private int hoursId;
+    private int dayId;
 
     public long getId() {
         return id;
@@ -62,5 +64,21 @@ public class Reservation {
 
     public void setDate(Timestamp date) {
         this.date = date;
+    }
+
+    public int getHoursId() {
+        return hoursId;
+    }
+
+    public void setHoursId(int hoursId) {
+        this.hoursId = hoursId;
+    }
+
+    public int getDayId() {
+        return dayId;
+    }
+
+    public void setDayId(int dayId) {
+        this.dayId = dayId;
     }
 }

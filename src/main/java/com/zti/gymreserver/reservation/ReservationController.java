@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/reservation")
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class ReservationController {
     @Autowired
     ReservationRepository repository;

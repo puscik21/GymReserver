@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import {Link, useLocation, useParams} from "react-router-dom"
-import {Form, InputGroup, FormControl, Button, Container, Jumbotron, Alert, Image, Row, Col, Modal} from 'react-bootstrap'
+import {Button, Container, Jumbotron, Alert, Image, Row, Col, Modal, Toast} from 'react-bootstrap'
 import Header from "./Header";
 import styled from 'styled-components'
 import TrainingRegistrationPage from "./TrainingRegistrationPage";
@@ -78,15 +78,14 @@ function ExtendedTrainer(props) {
                                 nulla accumsan, et vestibulum lectus condimentum.</p>
                         </Col>
                     </Row>
-                    <Button onClick={showRegistrationMenu} className="registerButton" variant="dark" size="lg">Register training</Button>
+                    <Button onClick={showRegistrationMenu} className="registerButton" variant="dark" size="lg">Register
+                        training</Button>
                 </Container>
             </Jumbotron>
             <Modal
-                className="modal-90w"
                 size="xl"
-                dialogClassName="modal-90w"
-                // show={showRegisterPopup}
-                show={true}
+                show={showRegisterPopup}
+                // show={true}
                 onHide={() => setShowRegisterPopup(false)}
                 aria-labelledby="example-modal-sizes-title-xl"
             >

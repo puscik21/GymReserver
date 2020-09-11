@@ -1,10 +1,10 @@
 import React, {useState, Component, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import axios from 'axios'
-import Trainer from "../components/Trainer"
-import {Alert, Container, Row, Col} from "react-bootstrap"
+import Trainer from "./Trainer"
+import {Container, Row, Col} from "react-bootstrap"
 import {useParams} from "react-router-dom";
-import ExtendedTrainer from "../components/ExtendedTrainer";
+import ExtendedTrainer from "./ExtendedTrainer";
 
 export default function TrainersPage() {
     const [usersProfiles, setUsersProfiles] = useState(null)
@@ -54,7 +54,8 @@ export default function TrainersPage() {
 
         const profiles = userData.map(user => {
             const {id, name, surname, password, createDate, lastLogin} = user
-            return <Trainer key={id} userId={id} name={name} surname={surname} password={password} createDate={createDate}
+            return <Trainer key={id} userId={id} name={name} surname={surname} password={password}
+                            createDate={createDate}
                             lastLogin={lastLogin}/>
         })
 
@@ -91,6 +92,5 @@ export default function TrainersPage() {
         <Container>
             {usersProfiles}
         </Container>
-        // {/*<Alert variant='warning'>This is a alert — check it out!</Alert>*/}
     )
 }

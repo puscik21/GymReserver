@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import TrainersPage from "./pages/TrainersPage";
+import TrainersPage from "./components/TrainersPage";
 import UsersPage from "./pages/UsersPage";
 import { BrowserRouter, Route } from 'react-router-dom';
 

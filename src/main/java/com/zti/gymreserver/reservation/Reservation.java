@@ -18,6 +18,13 @@ public class Reservation {
     private int hoursId;
     private int dayId;
 
+    @Override
+    public boolean equals(Object obj) {
+        Reservation other = (Reservation) obj;
+        return this.userId == other.userId && this.trainerId == other.trainerId
+                && this.hoursId == other.hoursId && this.dayId == other.dayId;
+    }
+
     public long getId() {
         return id;
     }

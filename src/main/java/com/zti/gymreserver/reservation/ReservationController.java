@@ -3,9 +3,11 @@ package com.zti.gymreserver.reservation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/reservation")
@@ -35,7 +37,7 @@ public class ReservationController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public void addReservation(@RequestBody Reservation reservation) {
+    public void addReservation(@RequestBody Reservation reservation) throws IOException{
         reservation.setCreateDate(new Timestamp(System.currentTimeMillis()));
         // TODO date of training will be probably prepared in another endpoint - some button of reservation
         Calendar calendar = Calendar.getInstance();
@@ -46,7 +48,13 @@ public class ReservationController {
         calendar.set(Calendar.MINUTE, 45);
         Timestamp timestamp = new Timestamp(calendar.getTime().getTime());
         reservation.setDate(timestamp);
-        repository.save(reservation);
+
+        List<Reservation> duplicates = this.getReservations().stream().filter(res -> res.equals(reservation)).collect(Collectors.toList());
+        if (duplicates.size() == 0) {
+            repository.save(reservation);
+        } else {
+            throw new IOException("Duplicated reservation");
+        }
     }
 
     @DeleteMapping(value = "{id}")

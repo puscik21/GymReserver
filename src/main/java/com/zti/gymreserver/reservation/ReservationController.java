@@ -1,5 +1,8 @@
 package com.zti.gymreserver.reservation;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,8 +39,20 @@ public class ReservationController {
         return repository.getUserReservations(id);
     }
 
+    @GetMapping(value = "trainer/week/{id}")
+    public String getWeekReservationList(@PathVariable long id) throws Exception {
+        List<Reservation> reservations = repository.getTrainerReservations(id);
+        WeekReservationList weekReservationList = new WeekReservationList();
+        for (Reservation res : reservations) {
+            weekReservationList.setReservationForUser(res.getId(), res.getHoursId(), res.getDayId(), res.getUserId());
+        }
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+        return objectMapper.writeValueAsString(weekReservationList);
+    }
+
     @RequestMapping(method = RequestMethod.POST)
-    public void addReservation(@RequestBody Reservation reservation) throws IOException{
+    public void addReservation(@RequestBody Reservation reservation) throws IOException {
         reservation.setCreateDate(new Timestamp(System.currentTimeMillis()));
         // TODO date of training will be probably prepared in another endpoint - some button of reservation
         Calendar calendar = Calendar.getInstance();

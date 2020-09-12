@@ -14,20 +14,20 @@ public class WeekReservationList {
         }
     }
 
-    public void setReservationForUser(int hoursId, int dayId, long userId) {
+    public void setReservationForUser(int hoursId, int dayId, long id, long userId) {
         HourReservations hourReservations = list.get(hoursId);
-        setReservationInDay(hourReservations, dayId, userId);
+        setReservationInDay(hourReservations, dayId, id, userId);
     }
 
-    private void setReservationInDay(HourReservations hourReservations, int dayId, long userId) {
+    private void setReservationInDay(HourReservations hourReservations, int dayId, long id, long userId) {
         switch (dayId) {
-            case 0 -> hourReservations.setMon(userId);
-            case 1 -> hourReservations.setTue(userId);
-            case 2 -> hourReservations.setWed(userId);
-            case 3 -> hourReservations.setThu(userId);
-            case 4 -> hourReservations.setFri(userId);
-            case 5 -> hourReservations.setSat(userId);
-            case 6 -> hourReservations.setSun(userId);
+            case 0 -> hourReservations.setMon(new long[]{id, userId});
+            case 1 -> hourReservations.setTue(new long[]{id, userId});
+            case 2 -> hourReservations.setWed(new long[]{id, userId});
+            case 3 -> hourReservations.setThu(new long[]{id, userId});
+            case 4 -> hourReservations.setFri(new long[]{id, userId});
+            case 5 -> hourReservations.setSat(new long[]{id, userId});
+            case 6 -> hourReservations.setSun(new long[]{id, userId});
         }
     }
 
@@ -35,26 +35,17 @@ public class WeekReservationList {
     public class HourReservations {
         private String name;
         private Integer hoursNumber;
-        private Long mon;
-        private Long tue;
-        private Long wed;
-        private Long thu;
-        private Long fri;
-        private Long sat;
-        private Long sun;
+        private long[] mon;
+        private long[] tue;
+        private long[] wed;
+        private long[] thu;
+        private long[] fri;
+        private long[] sat;
+        private long[] sun;
 
         public HourReservations(int hourId) {
-            // TODO sprawdzic czy sam sie null ustawia
-//            name = null;
             hoursNumber = hourId;
             this.setNameFromHourId(hourId);
-            mon = null;
-            tue = null;
-            wed = null;
-            thu = null;
-            fri = null;
-            sat = null;
-            sun = null;
         }
 
         private void setNameFromHourId(int hoursId) {
@@ -85,59 +76,59 @@ public class WeekReservationList {
             this.hoursNumber = hoursNumber;
         }
 
-        public Long getMon() {
+        public long[] getMon() {
             return mon;
         }
 
-        public void setMon(Long mon) {
+        public void setMon(long[] mon) {
             this.mon = mon;
         }
 
-        public Long getTue() {
+        public long[] getTue() {
             return tue;
         }
 
-        public void setTue(Long tue) {
+        public void setTue(long[] tue) {
             this.tue = tue;
         }
 
-        public Long getWed() {
+        public long[] getWed() {
             return wed;
         }
 
-        public void setWed(Long wed) {
+        public void setWed(long[] wed) {
             this.wed = wed;
         }
 
-        public Long getThu() {
+        public long[] getThu() {
             return thu;
         }
 
-        public void setThu(Long thu) {
+        public void setThu(long[] thu) {
             this.thu = thu;
         }
 
-        public Long getFri() {
+        public long[] getFri() {
             return fri;
         }
 
-        public void setFri(Long fri) {
+        public void setFri(long[] fri) {
             this.fri = fri;
         }
 
-        public Long getSat() {
+        public long[] getSat() {
             return sat;
         }
 
-        public void setSat(Long sat) {
+        public void setSat(long[] sat) {
             this.sat = sat;
         }
 
-        public Long getSun() {
+        public long[] getSun() {
             return sun;
         }
 
-        public void setSun(Long sun) {
+        public void setSun(long[] sun) {
             this.sun = sun;
         }
     }

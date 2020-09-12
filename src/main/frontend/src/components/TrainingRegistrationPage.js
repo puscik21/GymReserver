@@ -10,6 +10,7 @@ import Paper from '@material-ui/core/Paper';
 import {Button, Container, Toast, Row, Col} from "react-bootstrap";
 import axios from 'axios'
 import {Alert} from "@material-ui/lab";
+import {useParams} from "react-router-dom";
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -40,25 +41,10 @@ function TrainingRegistrationPage() {
     const [registrationData, setRegistrationData] = useState([])
     const [showRegistrationResult, setShowRegistrationResult] = useState(false);
     const [registrationResult, setRegistrationResult] = useState('success');
-    const [dataIsLoaded, setDataIsLoaded] = useState(true)
+    let {id} = useParams()
 
-    function createData(name, hoursNumber, mon, tue, wed, thu, fri, sat, sun) {
-        return {name, hoursNumber, mon, tue, wed, thu, fri, sat, sun};
-    }
-
-    const rows = [
-        createData('8:00 - 10:00', 0, 1, 2, 1, null, 1, null, null),
-        createData('10:00 - 12:00', 1, 1, 2, 1, null, 1, null, null),
-        createData('12:00 - 14:00', 2, 1, 2, 1, null, 1, null, null),
-        createData('14:00 - 16:00', 3, 1, 2, 1, null, 1, null, null),
-        createData('16:00 - 18:00', 4, 1, 2, 1, null, 1, null, null),
-        createData('18:00 - 20:00', 5, 1, 2, 1, null, 1, null, null),
-        createData('20:00 - 22:00', 6, 1, 2, 1, null, 1, null, null)
-    ];
-
-    ////
     const loadRegistrationData = () => {
-        let path = 'http://localhost:8080/reservation/trainer/week/9'
+        let path = 'http://localhost:8080/reservation/trainer/week/' + id
         axios.get(path)
             .then(res => {
                 setRegistrationData(res.data.list);
@@ -67,12 +53,11 @@ function TrainingRegistrationPage() {
 
     useEffect(loadRegistrationData, [])
 
-
 // TODO for now user is static - but in future take userId from session
-    const registerTraining = (hoursNumber, dayNumber, userId) => {
+    const registerTraining = (hoursNumber, dayNumber) => {
         const reservation = {
             userId: 1,      // TODO take userId from session
-            trainerId: 9,   // TODO take trainerId from path
+            trainerId: id,
             duration: 120,  // TODO remove duration
             hoursId: hoursNumber,
             dayId: dayNumber
@@ -95,27 +80,41 @@ function TrainingRegistrationPage() {
     const deleteReservation = (reservationId) => {
         const path = 'http://localhost:8080/reservation/' + reservationId
         axios.delete(path).then(res => {
-            console.log(res)
-            console.log('DELETED: ' + reservationId)
+            if (res.status) {
+                setShowRegistrationResult(true)
+                setRegistrationResult('deleteSuccess')
+                loadRegistrationData()
+            }
+        }).catch(() => {
+            setShowRegistrationResult(true)
+            setRegistrationResult('error')
         })
     }
-}
 
-    const getReservationStyledInfo = (hoursNumber, dayNumber, userId) => {
-        if (userId == null) {
+    const getReservationStyledInfo = (hoursNumber, dayNumber, resAndUserIds) => {
+        if (resAndUserIds == null) {
             return (
                 <StyledTableCell align="left">
-                    <Button onClick={() => registerTraining(hoursNumber, dayNumber, userId)} className="registerButton"
+                    <Button onClick={() => registerTraining(hoursNumber, dayNumber)} className="registerButton"
                             variant="dark" size="sm">Register</Button>
                 </StyledTableCell>
             )
         } else {
+            const reservationId = resAndUserIds[0]
+            const userId = resAndUserIds[1]
+            // TODO if userId is same as logged user then change it style
+            // TODO if userId is same as logged user only then he can remove it
             return (
                 <StyledTableCell align="left">
-                    <Button onClick={() => deleteReservation(reservationId) className="registerButton" variant="outline-danger disabled" size="sm">Reserved</Button>
+                    <Button onClick={() => deleteReservation(reservationId)} className="registerButton"
+                            variant="outline-danger disabled" size="sm">Reserved</Button>
                 </StyledTableCell>
             )
         }
+    }
+
+    const createAlert = (severity, message) => {
+        return <Alert style={{marginTop: '2em'}} variant="filled" severity={severity}>{message}</Alert>
     }
 
     const ResultMessage = () => {
@@ -123,17 +122,11 @@ function TrainingRegistrationPage() {
             setShowRegistrationResult(false)
         }, 3000)
         if (registrationResult === 'success') {
-            return (
-                <Alert style={{marginTop: '2em'}} variant="filled" severity="success">
-                    Successful registration
-                </Alert>
-            )
+            return createAlert('success', 'Successful registration!')
+        } else if (registrationResult === 'deleteSuccess') {
+            return createAlert('success', 'Successful removal of reservation!')
         } else {
-            return (
-                <Alert style={{marginTop: '2em'}} variant="filled" severity="error">
-                    Oups! Something went wrong
-                </Alert>
-            )
+            return createAlert('error', 'Oups! Something went wrong')
         }
     }
 

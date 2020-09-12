@@ -44,7 +44,7 @@ public class ReservationController {
         List<Reservation> reservations = repository.getTrainerReservations(id);
         WeekReservationList weekReservationList = new WeekReservationList();
         for (Reservation res : reservations) {
-            weekReservationList.setReservationForUser(res.getId(), res.getHoursId(), res.getDayId(), res.getUserId());
+            weekReservationList.setReservationForUser(res.getHoursId(), res.getDayId(), res.getId(), res.getUserId());
         }
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);

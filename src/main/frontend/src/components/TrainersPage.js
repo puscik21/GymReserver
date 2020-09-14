@@ -7,11 +7,11 @@ import {useParams} from "react-router-dom";
 import ExtendedTrainer from "./ExtendedTrainer";
 
 export default function TrainersPage() {
-    const [usersProfiles, setUsersProfiles] = useState(null)
-    const [userData, setUserData] = useState([])
+    const [trainersProfiles, setTrainersProfiles] = useState(null)
+    const [trainerData, setTrainerData] = useState([])
     let {id} = useParams()
 
-    // first loading - user data load
+    // first loading - trainer data load
     useEffect(() => {
         if (id == null) {
             id = ""
@@ -19,26 +19,26 @@ export default function TrainersPage() {
         let path = 'http://localhost:8080/trainer/' + id
         axios.get(path)
             .then(res => {
-                setUserData(res.data)
+                setTrainerData(res.data)
             })
     }, [id])
 
     useEffect(() => {
 
         let readyProfiles
-        if (userData.length === 1) { // trainer profile case
+        if (trainerData.length === 1) { // trainer profile case
             readyProfiles = prepareSingleTrainerProfile()
         } else {
             readyProfiles = prepareProfilesOfTrainers()
         }
 
-        setUsersProfiles(readyProfiles)
-    }, [userData]);
+        setTrainersProfiles(readyProfiles)
+    }, [trainerData]);
 
     const prepareSingleTrainerProfile = () => {
-        const profiles = userData.map(user => {
-            const {id, name, surname, password, createDate, lastLogin} = user
-            return <ExtendedTrainer key={id} userId={id} name={name} surname={surname} password={password} createDate={createDate}
+        const profiles = trainerData.map(trainer => {
+            const {id, name, surname, password, createDate, lastLogin} = trainer
+            return <ExtendedTrainer key={id} trainerId={id} name={name} surname={surname} password={password} createDate={createDate}
                             lastLogin={lastLogin}/>
         })
 
@@ -52,9 +52,9 @@ export default function TrainersPage() {
         let count = 0
         let readyProfiles
 
-        const profiles = userData.map(user => {
-            const {id, name, surname, password, createDate, lastLogin} = user
-            return <Trainer key={id} userId={id} name={name} surname={surname} password={password}
+        const profiles = trainerData.map(trainer => {
+            const {id, name, surname, password, createDate, lastLogin} = trainer
+            return <Trainer key={id} trainerId={id} name={name} surname={surname} password={password}
                             createDate={createDate}
                             lastLogin={lastLogin}/>
         })
@@ -90,7 +90,7 @@ export default function TrainersPage() {
 
     return (
         <Container>
-            {usersProfiles}
+            {trainersProfiles}
         </Container>
     )
 }

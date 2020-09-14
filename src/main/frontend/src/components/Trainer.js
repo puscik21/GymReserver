@@ -19,14 +19,14 @@ const Styles = styled.div`
 `;
 
 function Trainer(props) {
-    const {userId, name, surname, password, createDate, lastLogin} = props
+    const {trainerId, name, surname, password, createDate, lastLogin} = props
     let location = useLocation()
     const {id} = useParams()
-    const userLink = "/main/trainers/" + userId
+    const trainerLink = "/main/trainers/" + trainerId
 
     return (
         <Styles>
-            <Link to={userLink} className="link">
+            <Link to={trainerLink} className="link">
                 <Jumbotron className="jumbo">
                     <Container>
                         <Header title={name}/>

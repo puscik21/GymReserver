@@ -24,17 +24,17 @@ const Styles = styled.div`
 `;
 
 function ExtendedTrainer(props) {
-    const {userId, name, surname, password, createDate, lastLogin} = props
+    const {trainerId, name, surname, password, createDate, lastLogin} = props
     let location = useLocation()
     const {id} = useParams()
-    const userLink = "/main/trainers/" + userId
+    const trainerLink = "/main/trainers/" + trainerId
     const [showRegisterPopup, setShowRegisterPopup] = useState(false)
 
     const getAvatarOption = (name, value) => {
         return "&options[" + name + "][]=" + value
     }
 
-    const avatarLink = "https://avatars.dicebear.com/api/avataaars/" + userId + ".svg?options[accessoriesChance]=0&options[top][]=shortHair" +
+    const avatarLink = "https://avatars.dicebear.com/api/avataaars/" + trainerId + ".svg?options[accessoriesChance]=0&options[top][]=shortHair" +
         getAvatarOption("mouth", "smile")
 
     const showRegistrationMenu = () => {

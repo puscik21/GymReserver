@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import TrainersPage from "./components/TrainersPage";
-import UsersPage from "./pages/UsersPage";
+import UsersPage from "./components/UsersPage";
 import { BrowserRouter, Route } from 'react-router-dom';
 
 export default function App_old() {

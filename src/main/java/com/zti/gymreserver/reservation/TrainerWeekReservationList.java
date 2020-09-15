@@ -18,12 +18,12 @@ public class TrainerWeekReservationList {
         }
     }
 
-    public void setReservationForUser(int hoursId, int dayId, long id, long userId, String date) {
+    public void setReservationForUser(int hoursId, long id, long userId, String date) {
         HourReservations hourReservations = list.get(hoursId);
-        setReservationInDay(hourReservations, dayId, id, userId, date);
+        setReservationInDay(hourReservations, id, userId, date);
     }
 
-    private void setReservationInDay(HourReservations hourReservations, int dayId, long id, long userId, String date) {
+    private void setReservationInDay(HourReservations hourReservations, long id, long userId, String date) {
         long difference = 0;
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -61,20 +61,7 @@ public class TrainerWeekReservationList {
 
         public HourReservations(int hourId) {
             hoursNumber = hourId;
-            this.setNameFromHourId(hourId);
-        }
-
-        // TODO: 14.09.2020 fromDateConverter
-        private void setNameFromHourId(int hoursId) {
-            switch (hoursId) {
-                case 0 -> this.setName("8:00 - 10:00");
-                case 1 -> this.setName("10:00 - 12:00");
-                case 2 -> this.setName("12:00 - 14:00");
-                case 3 -> this.setName("14:00 - 16:00");
-                case 4 -> this.setName("16:00 - 18:00");
-                case 5 -> this.setName("18:00 - 20:00");
-                case 6 -> this.setName("20:00 - 22:00");
-            }
+            this.setName(DateConverter.hoursIdToString(hourId));
         }
 
         public String getName() {

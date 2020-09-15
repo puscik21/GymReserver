@@ -9,10 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -46,11 +43,15 @@ public class ReservationController {
     public String getTrainerWeekReservationList(@PathVariable long id) throws Exception {
         List<Reservation> reservations = repository.getTrainerReservations(id);
         TrainerWeekReservationList trainerWeekReservationList = new TrainerWeekReservationList();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
         for (Reservation res : reservations) {
-            Calendar calendar = Calendar.getInstance();
             Date reservationDate = new SimpleDateFormat("yyyy-MM-dd").parse(res.getDate());
-            if (calendar.getTime().before(reservationDate)) {
-                trainerWeekReservationList.setReservationForUser(res.getHoursId(), res.getDayId(), res.getId(), res.getUserId(), res.getDate());
+            if (!calendar.getTime().after(reservationDate)) {
+                trainerWeekReservationList.setReservationForUser(res.getHoursId(), res.getId(), res.getUserId(), res.getDate());
             }
         }
         ObjectMapper objectMapper = new ObjectMapper();
@@ -63,8 +64,20 @@ public class ReservationController {
         List<Reservation> reservations = repository.getUserReservations(id);
         List<UserWeekReservation> reservationList = new LinkedList<>();
         for (Reservation res : reservations) {
-//            reservationList.add(new UserWeekReservation(res.getId(), res.getTrainerId(), res.getHoursId(), res.getDate()));
+            reservationList.add(new UserWeekReservation(res.getId(), res.getTrainerId(), res.getHoursId(), res.getDate()));
         }
+
+        Comparator<UserWeekReservation> comparator = (o1, o2) -> {
+            if (o1.getDate().compareTo(o2.getDate()) > 0) {
+                return 1;
+            } else if (o1.getDate().compareTo(o2.getDate()) < 0) {
+                return -1;
+            } else {
+                return Integer.compare(o1.getHours().compareTo(o2.getHours()), 0);
+            }
+        };
+        reservationList.sort(comparator);
+
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
         return objectMapper.writeValueAsString(reservationList);

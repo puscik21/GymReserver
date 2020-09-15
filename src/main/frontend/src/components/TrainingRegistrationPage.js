@@ -63,8 +63,6 @@ function TrainingRegistrationPage() {
             dayId: dayNumber
         }
 
-        console.log("hoursNumber: " + reservation.hoursId)
-        console.log("dayNumber: " + reservation.dayId)
         axios.post('http://localhost:8080/reservation/', reservation).then(res => {
             if (res.status) {
                 setShowRegistrationResult(true)

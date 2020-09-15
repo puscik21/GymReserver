@@ -1,19 +1,29 @@
 import React, {useState, Component, useEffect} from 'react';
-import Header from "../components/Header";
+import Header from "./Header";
 import axios from 'axios';
 import {Container, Row, Col, Jumbotron, Button, Image} from "react-bootstrap";
 import styled from "styled-components";
+import {UserReservation} from "./UserReservation";
 
 const Styles = styled.div`
   .about {
     margin-top: 4em;
     margin-bottom: 3em;
   }
+  
+  .avatar {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1em;
+  }
 `;
 
 export const UsersPage = () => {
-    const [profileData, setProfileData] = useState([]);
-    const [userInfo, setUserInfo] = useState(null);
+    const [profileData, setProfileData] = useState([])
+    const [userInfo, setUserInfo] = useState(null)
+    const [reservationsData, setReservationsData] = useState([])
+    const [userReservationList, setUserReservationList] = useState([])
 
     const getAvatarOption = (name, value) => {
         return "&options[" + name + "][]=" + value
@@ -27,7 +37,7 @@ export const UsersPage = () => {
             <div>
                 <Row className={"justify-content-lg-center"}>
                     <Col lg="6">
-                        <Image style={{display: 'block', marginLeft: 'auto', marginRight: 'auto'}}
+                        <Image className="avatar"
                                src={avatarLink}
                                height="200px" roundedCircle
                         />
@@ -81,6 +91,7 @@ export const UsersPage = () => {
 
     useEffect(() => {
         getData();
+        getReservationsData();
     }, [])
 
     useEffect(() => {
@@ -89,31 +100,38 @@ export const UsersPage = () => {
 
 
     const getData = () => {
-        let path = 'http://localhost:8080/user/1';
+        let path = 'http://localhost:8080/user/1'
         axios.get(path)
             .then(res => {
-                console.log(res);
-                setProfileData(res.data);
-            });
+                setProfileData(res.data)
+            })
     }
 
-
-    const userReservations = () => {
-        return (
-            <div>
-                <Row className={"justify-content-sm-center"}>
-                    <h1>Reservation list</h1>
-                </Row>
-            </div>
-        )
+    const getReservationsData = () => {
+        let userId = 1
+        let path = 'http://localhost:8080/reservation/user/week/' + userId
+        axios.get(path)
+            .then(res => {
+                setReservationsData(res.data)
+            })
     }
+
+    useEffect(() => {
+        const readyReservationList = reservationsData.map(res => {
+            return UserReservation(res, getReservationsData)
+        })
+        setUserReservationList(readyReservationList)
+    }, [reservationsData])
 
     return (
         <Styles>
             <Jumbotron>
                 <Container>
                     {userInfo}
-                    {userReservations()}
+                    <Row className={"justify-content-sm-center"}>
+                        <h1>Reservation list</h1>
+                    </Row>
+                    {userReservationList}
                 </Container>
             </Jumbotron>
         </Styles>

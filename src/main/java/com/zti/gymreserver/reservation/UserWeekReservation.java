@@ -1,7 +1,5 @@
 package com.zti.gymreserver.reservation;
 
-import java.sql.Timestamp;
-
 public class UserWeekReservation {
 
     private long id;
@@ -9,11 +7,11 @@ public class UserWeekReservation {
     private String hours;
     private String date;
 
-    public UserWeekReservation(long id, long trainerId, int hoursId, Timestamp date) {
+    public UserWeekReservation(long id, long trainerId, int hoursId, String date) {
         this.id = id;
         this.trainerId = trainerId;
         this.hours = DateConverter.hoursIdToString(hoursId);
-        this.date = DateConverter.timestampToDate(date);
+        this.date = date;
     }
 
     public long getId() {

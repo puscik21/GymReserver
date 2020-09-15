@@ -27,6 +27,7 @@ export const NavigationBar = () => (
                     <Nav.Item><Nav.Link href="/main/about">About</Nav.Link></Nav.Item>
                     <Nav.Item><Nav.Link href="/main/contact">Contact</Nav.Link></Nav.Item>
                     <Nav.Item><Nav.Link href="/main/slides">Slides</Nav.Link></Nav.Item>
+                    <Nav.Item><Nav.Link href="/main/user/1">Profile</Nav.Link></Nav.Item>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>

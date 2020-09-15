@@ -152,13 +152,13 @@ function TrainingRegistrationPage() {
                                 <StyledTableCell component="th" scope="row">
                                     {row.name}
                                 </StyledTableCell>
-                                {getReservationStyledInfo(row.hoursNumber, 0, row.mon)}
-                                {getReservationStyledInfo(row.hoursNumber, 1, row.tue)}
-                                {getReservationStyledInfo(row.hoursNumber, 2, row.wed)}
-                                {getReservationStyledInfo(row.hoursNumber, 3, row.thu)}
-                                {getReservationStyledInfo(row.hoursNumber, 4, row.fri)}
-                                {getReservationStyledInfo(row.hoursNumber, 5, row.sat)}
-                                {getReservationStyledInfo(row.hoursNumber, 6, row.sun)}
+                                {getReservationStyledInfo(row.hoursNumber, 0, row.day0)}
+                                {getReservationStyledInfo(row.hoursNumber, 1, row.day1)}
+                                {getReservationStyledInfo(row.hoursNumber, 2, row.day2)}
+                                {getReservationStyledInfo(row.hoursNumber, 3, row.day3)}
+                                {getReservationStyledInfo(row.hoursNumber, 4, row.day4)}
+                                {getReservationStyledInfo(row.hoursNumber, 5, row.day5)}
+                                {getReservationStyledInfo(row.hoursNumber, 6, row.day6)}
                             </StyledTableRow>
                         ))}
                     </TableBody>

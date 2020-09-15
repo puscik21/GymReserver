@@ -8,7 +8,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,29 +43,42 @@ public class ReservationController {
     }
 
     @GetMapping(value = "trainer/week/{id}")
-    public String getWeekReservationList(@PathVariable long id) throws Exception {
+    public String getTrainerWeekReservationList(@PathVariable long id) throws Exception {
         List<Reservation> reservations = repository.getTrainerReservations(id);
-        WeekReservationList weekReservationList = new WeekReservationList();
+        TrainerWeekReservationList trainerWeekReservationList = new TrainerWeekReservationList();
         for (Reservation res : reservations) {
-            weekReservationList.setReservationForUser(res.getHoursId(), res.getDayId(), res.getId(), res.getUserId());
+            Calendar calendar = Calendar.getInstance();
+            Date reservationDate = new SimpleDateFormat("yyyy-MM-dd").parse(res.getDate());
+            if (calendar.getTime().before(reservationDate)) {
+                trainerWeekReservationList.setReservationForUser(res.getHoursId(), res.getDayId(), res.getId(), res.getUserId(), res.getDate());
+            }
         }
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
-        return objectMapper.writeValueAsString(weekReservationList);
+        return objectMapper.writeValueAsString(trainerWeekReservationList);
+    }
+
+    @GetMapping(value = "user/week/{id}")
+    public String getUserWeekReservationList(@PathVariable long id) throws Exception {
+        List<Reservation> reservations = repository.getUserReservations(id);
+        List<UserWeekReservation> reservationList = new LinkedList<>();
+        for (Reservation res : reservations) {
+//            reservationList.add(new UserWeekReservation(res.getId(), res.getTrainerId(), res.getHoursId(), res.getDate()));
+        }
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+        return objectMapper.writeValueAsString(reservationList);
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public void addReservation(@RequestBody Reservation reservation) throws IOException {
-        reservation.setCreateDate(new Timestamp(System.currentTimeMillis()));
-        // TODO date of training will be probably prepared in another endpoint - some button of reservation
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, 2020);
-        calendar.set(Calendar.MONTH, 10);
-        calendar.set(Calendar.DAY_OF_MONTH, 15);
-        calendar.set(Calendar.HOUR_OF_DAY, 15);
-        calendar.set(Calendar.MINUTE, 45);
-        Timestamp timestamp = new Timestamp(calendar.getTime().getTime());
-        reservation.setDate(timestamp);
+        Timestamp creationTimestamp = new Timestamp(calendar.getTime().getTime());
+        reservation.setCreateDate(creationTimestamp.toString());
+
+        calendar.add(Calendar.DAY_OF_MONTH, reservation.getDayId());
+        Timestamp reservationTimestamp = new Timestamp(calendar.getTime().getTime());
+        reservation.setDate(DateConverter.timestampToDate(reservationTimestamp));
 
         List<Reservation> duplicates = this.getReservations().stream().filter(res -> res.equals(reservation)).collect(Collectors.toList());
         if (duplicates.size() == 0) {

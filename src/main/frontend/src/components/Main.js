@@ -9,6 +9,7 @@ import Footer from "./Footer";
 import {Layout} from "./Layout";
 import {Jumbotron} from "./Jumbotron";
 import {NavigationBar} from "./NavigationBar";
+import {UsersPage} from "../pages/UsersPage";
 
 function Main() {
     return(
@@ -21,6 +22,7 @@ function Main() {
                         <Switch>
                             <Route exact path="/main/trainers" component={App} />
                             <Route exact path="/main/trainers/:id" component={App} />
+                            <Route exact path="/main/user/:id" component={UsersPage} />
                             <Route exact path="/main/about" component={About} />
                             <Route path="/main/contact" component={Contact} />
                             <Route path="/main/slides" component={Slides} />

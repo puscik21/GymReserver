@@ -1,8 +1,6 @@
 package com.zti.gymreserver.reservation;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.sql.Timestamp;
 
 @Entity(name = "Reservation")
 @Table(name = "reservations")
@@ -13,8 +11,8 @@ public class Reservation {
     private long userId;
     private long trainerId;
     private int duration;
-    private Timestamp createDate;
-    private Timestamp date;
+    private String createDate;
+    private String date;
     private int hoursId;
     private int dayId;
 
@@ -57,19 +55,19 @@ public class Reservation {
         this.duration = duration;
     }
 
-    public Timestamp getCreateDate() {
+    public String getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Timestamp createDate) {
+    public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
 
-    public Timestamp getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Timestamp date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

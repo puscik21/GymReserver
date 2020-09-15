@@ -1,59 +1,121 @@
 import React, {useState, Component, useEffect} from 'react';
 import Header from "../components/Header";
 import axios from 'axios';
-import {Link, Route} from 'react-router-dom'
+import {Container, Row, Col, Jumbotron, Button, Image} from "react-bootstrap";
+import styled from "styled-components";
 
-export default class UsersPage extends Component {
-    render() {
+const Styles = styled.div`
+  .about {
+    margin-top: 4em;
+    margin-bottom: 3em;
+  }
+`;
+
+export const UsersPage = () => {
+    const [profileData, setProfileData] = useState([]);
+    const [userInfo, setUserInfo] = useState(null);
+
+    const getAvatarOption = (name, value) => {
+        return "&options[" + name + "][]=" + value
+    }
+
+    const avatarLink = "https://avatars.dicebear.com/api/avataaars/" + profileData.id + ".svg?options[accessoriesChance]=0&options[top][]=shortHair" +
+        getAvatarOption("mouth", "smile")
+
+    const prepareUserInfo = () => {
         return (
             <div>
-                <Header title={"Trainers"} />
-                <Profiles userId={this.props.userId}/>
+                <Row className={"justify-content-lg-center"}>
+                    <Col lg="6">
+                        <Image style={{display: 'block', marginLeft: 'auto', marginRight: 'auto'}}
+                               src={avatarLink}
+                               height="200px" roundedCircle
+                        />
+                    </Col>
+                </Row>
+                <Row className={"justify-content-lg-center"}>
+                    <Col>
+                        <Container>
+                            <Header title={profileData.name + " " + profileData.surname}/>
+                        </Container>
+                    </Col>
+                </Row>
+                <Row className="about">
+                    <Col md={6} sm={12}>
+                        <h2>About me</h2><br/>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus id nunc porta,
+                            iaculis risus in, rutrum nulla. Nam dignissim semper lectus dictum dignissim.
+                            Praesent tempus ligula sit amet sem hendrerit porttitor. Morbi vel erat ac sapien
+                            tincidunt cursus. Praesent consequat id tellus non vestibulum. Morbi ante libero,
+                            interdum a fringilla quis, egestas a lorem. Ut suscipit libero ante, quis vulputate
+                            ex consequat a.</p>
+                    </Col>
+                    <Col lg={6} md={6} xs={12}>
+                        <h2>Contact details</h2><br/>
+                        <Row>
+                            <Col sm={3}><h6>Age</h6></Col>
+                            <Col sm={9}>23</Col>
+                        </Row>
+                        <hr/>
+                        <Row>
+                            <Col sm={3}><h6>Sex</h6></Col>
+                            <Col sm={9}>Male</Col>
+                        </Row>
+                        <hr/>
+                        <Row>
+                            <Col sm={3}><h6>E-mail</h6></Col>
+                            <Col sm={9}>example@gmail.com</Col>
+                        </Row>
+                        <hr/>
+                        <Row>
+                            <Col sm={3}><h6>Phone</h6></Col>
+                            <Col sm={9}>123 456 789</Col>
+                        </Row>
+                        <hr/>
+                    </Col>
+                </Row>
+                <hr/>
             </div>
         )
     }
-}
-
-const Profiles = (props) => {
-    const [profiles, setProfiles] = useState([]);
 
     useEffect(() => {
         getData();
-    }, []);
+    }, [])
+
+    useEffect(() => {
+        setUserInfo(prepareUserInfo())
+    }, [profileData])
+
 
     const getData = () => {
-        let path = 'http://localhost:8080/trainer/';
+        let path = 'http://localhost:8080/user/1';
         axios.get(path)
             .then(res => {
                 console.log(res);
-                setProfiles(res.data);
+                setProfileData(res.data);
             });
     }
 
-    // return (
-    //     <UserData profile={profile}/>
-    // )
 
-    return profiles.map((profile, index) => {
+    const userReservations = () => {
         return (
-            // <TrainerData profile={profile}/>
-            <Route path="/trainers/" render={props => (
-                <React.Fragment>
-                    <TrainerData profile={profile} index={1}/> {/* TODO in future based on logged user */}
-                </React.Fragment>
-            )}/>
+            <div>
+                <Row className={"justify-content-sm-center"}>
+                    <h1>Reservation list</h1>
+                </Row>
+            </div>
         )
-    })
-}
+    }
 
-const TrainerData = (props) => {
-    const {profile, index} = props;
     return (
-        <div>
-            <h1><Link to={index} >{profile.name}</Link></h1>
-            <p>{profile.id}</p>
-            <p>{profile.surname}</p>
-            <p>{profile.createDate}</p>
-        </div>
+        <Styles>
+            <Jumbotron>
+                <Container>
+                    {userInfo}
+                    {userReservations()}
+                </Container>
+            </Jumbotron>
+        </Styles>
     )
 }

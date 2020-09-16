@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -21,7 +22,9 @@ public class TrainerController {
 
     @GetMapping(value = "{id}")
     public List<Trainer> getTrainer(@PathVariable long id) {
-        return List.of(repository.findById(id).orElse(new Trainer()));
+        List<Trainer> list = new ArrayList<>();
+        list.add(repository.findById(id).orElse(new Trainer()));
+        return list;
     }
 
     @RequestMapping(method = RequestMethod.POST)

@@ -28,7 +28,7 @@ dependencies {
     }
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.11.2'
 //    compile group: 'org.springframework.security', name: 'spring-security-core', version: '5.4.0'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.3.3.RELEASE'
+//    compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.3.3.RELEASE'
 //    compile group: 'org.springframework.cloud', name: 'spring-cloud-gcp', version: '1.2.5.RELEASE', ext: 'pom'
 //    classpath 'com.google.cloud.tools:appengine-gradle-plugin:2.3.0'
 }

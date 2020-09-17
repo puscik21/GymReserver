@@ -1,1 +1,1 @@
-web: vendor/bin/heroku-php-apache2 public/
+web: java -Dserver.port=$PORT $Java_OPTS -jar build/libs/gymreserver-0.0.1-SNAPSHOT.jar public/

@@ -7,7 +7,6 @@ import App from "./App";
 import {UsersPage} from "./UsersPage";
 import {About} from "./About";
 import {Contact} from "./Contact";
-import Slides from "./Slides";
 import {NoMatch} from "./NoMatch";
 import Footer from "./Footer";
 
@@ -25,7 +24,6 @@ export const MainPageRouter = () => {
                             <Route exact path="/main/user" component={UsersPage}/>
                             <Route exact path="/main/about" component={About}/>
                             <Route path="/main/contact" component={Contact}/>
-                            <Route path="/main/slides" component={Slides}/>
                             <Route component={NoMatch}/>
                         </Switch>
                     </Router>

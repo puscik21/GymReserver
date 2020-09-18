@@ -13,6 +13,7 @@ public class Person {
     private long id;
     private String name;
     private String surname;
+    private String login;
     private String password;
     private Timestamp createDate;
     private Timestamp lastLogin;
@@ -27,6 +28,18 @@ public class Person {
 
     public String getSurname() {
         return surname;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getPassword() {

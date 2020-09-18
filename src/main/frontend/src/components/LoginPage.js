@@ -55,16 +55,14 @@ export default function LoginPage() {
     const handleLogin = (event) => {
         event.preventDefault()
         const userCredentials = {
-            name: login,
+            login: login,
             password: password
         }
         axios.post('http://localhost:8080/user/checkUser/', userCredentials)
             .then(res => {
                 if (res.status) {
                     localStorage.setItem('user', res.data.id);
-                    console.log(localStorage.getItem('user'))
                     setRedirect(true)
-                    return <Redirect to='/main/trainers'/>
                 }
             }).catch((res) => {
             console.log('Login error')
@@ -111,10 +109,6 @@ export default function LoginPage() {
                             autoComplete="current-password"
                             onChange={(event => setPassword(event.target.value))}
                         />
-                        {/*<FormControlLabel*/}
-                        {/*    control={<Checkbox value="remember" color="primary" />}*/}
-                        {/*    label="Remember me"*/}
-                        {/*/>*/}
                         <Button
                             type="submit"
                             fullWidth
@@ -125,13 +119,8 @@ export default function LoginPage() {
                             Sign In
                         </Button>
                         <Grid container>
-                            {/*<Grid item xs>*/}
-                            {/*    <Link href="#" variant="body2">*/}
-                            {/*        Forgot password?*/}
-                            {/*    </Link>*/}
-                            {/*</Grid>*/}
                             <Grid item>
-                                <Link href="#" variant="body2">
+                                <Link href="signup" variant="body2">
                                     {"Don't have an account? Sign Up"}
                                 </Link>
                             </Grid>

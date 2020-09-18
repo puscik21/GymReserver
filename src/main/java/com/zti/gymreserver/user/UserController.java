@@ -3,7 +3,6 @@ package com.zti.gymreserver.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.sql.SQLDataException;
 import java.sql.Timestamp;
 import java.util.List;
@@ -27,20 +26,30 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public void addPerson(@RequestBody User user) {
+    public long addPerson(@RequestBody User user) throws SQLDataException {
+        if (isLoginInUse(user.getLogin())) {
+            throw new SQLDataException("User already exists!");
+        }
         user.setCreateDate(new Timestamp(System.currentTimeMillis()));
         repository.save(user);
+        return getUserByLogin(user.getLogin()).getId();
     }
 
     @PostMapping(value = "/checkUser")
-    public User checkIfUserExists(@RequestBody UserCredentials userCredentials) throws SQLDataException {
-        User user = repository.checkIfUserExists(userCredentials.name, userCredentials.password);
+    public User authorizeUser(@RequestBody UserCredentials userCredentials) throws SQLDataException {
+        User user = repository.authorizeUser(userCredentials.login, userCredentials.password);
         if (user == null) {
-//            throw new IOException("Wrong login or password");
             throw new SQLDataException("Wrong login or password");
         } else {
             return user;
         }
-//        return user;
+    }
+
+    private boolean isLoginInUse(String login) {
+        return repository.getUserByLogin(login) != null;
+    }
+
+    private User getUserByLogin(String login) {
+        return repository.getUserByLogin(login);
     }
 }

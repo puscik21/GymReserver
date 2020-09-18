@@ -1,15 +1,20 @@
 package com.zti.gymreserver.user;
 
 public class UserCredentials {
-    String name;
+    String login;
     String password;
 
-    public String getName() {
-        return name;
+    public UserCredentials(String login, String password) {
+        this.login = login;
+        this.password = password;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getPassword() {

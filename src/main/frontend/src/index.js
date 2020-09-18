@@ -7,6 +7,8 @@ import Cover from "./components/Cover";
 import Main from "./components/Main";
 import {NoMatch} from "./components/NoMatch";
 import LoginPage from "./components/LoginPage";
+import {Logout} from "./components/Logout";
+import SignUpPage from "./components/SignUpPage";
 
 ReactDOM.render(
     <React.StrictMode>
@@ -15,6 +17,8 @@ ReactDOM.render(
                 <Switch>
                     <Route exact path="/" component={Cover} />
                     <Route exact path="/login" component={LoginPage} />
+                    <Route exact path="/signup" component={SignUpPage} />
+                    <Route exact path="/logout" component={Logout} />
                     <Route path="/main" component={Main} />
                     <Route component={NoMatch} />
                 </Switch>

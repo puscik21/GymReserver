@@ -37,13 +37,27 @@ public class TrainerWeekReservationList {
             e.printStackTrace();
         }
         switch ((int) difference) {
-            case 0 -> hourReservations.setDay0(new long[]{id, userId});
-            case 1 -> hourReservations.setDay1(new long[]{id, userId});
-            case 2 -> hourReservations.setDay2(new long[]{id, userId});
-            case 3 -> hourReservations.setDay3(new long[]{id, userId});
-            case 4 -> hourReservations.setDay4(new long[]{id, userId});
-            case 5 -> hourReservations.setDay5(new long[]{id, userId});
-            case 6 -> hourReservations.setDay6(new long[]{id, userId});
+            case 0:
+                hourReservations.setDay0(new long[]{id, userId});
+                break;
+            case 1:
+                hourReservations.setDay1(new long[]{id, userId});
+                break;
+            case 2:
+                hourReservations.setDay2(new long[]{id, userId});
+                break;
+            case 3:
+                hourReservations.setDay3(new long[]{id, userId});
+                break;
+            case 4:
+                hourReservations.setDay4(new long[]{id, userId});
+                break;
+            case 5:
+                hourReservations.setDay5(new long[]{id, userId});
+                break;
+            case 6:
+                hourReservations.setDay6(new long[]{id, userId});
+                break;
         }
     }
 

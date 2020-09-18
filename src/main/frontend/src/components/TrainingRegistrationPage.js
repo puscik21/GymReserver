@@ -53,11 +53,10 @@ function TrainingRegistrationPage() {
 
     useEffect(loadRegistrationData, [])
 
-// TODO for now user is static - but in future take userId from session
     const registerTraining = (hoursNumber, dayNumber) => {
         const userId = localStorage.getItem('user')
         const reservation = {
-            userId: userId,      // TODO take userId from session
+            userId: userId,
             trainerId: id,
             duration: 120,  // TODO remove duration
             hoursId: hoursNumber,

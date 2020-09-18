@@ -7,7 +7,6 @@ function App() {
   return (
       <Container>
         <div className="App">
-            {/*TODO in future page based on logged user*/}
             <TrainersPage />
         </div>
       </Container>

@@ -55,8 +55,9 @@ function TrainingRegistrationPage() {
 
 // TODO for now user is static - but in future take userId from session
     const registerTraining = (hoursNumber, dayNumber) => {
+        const userId = localStorage.getItem('user')
         const reservation = {
-            userId: 1,      // TODO take userId from session
+            userId: userId,      // TODO take userId from session
             trainerId: id,
             duration: 120,  // TODO remove duration
             hoursId: hoursNumber,

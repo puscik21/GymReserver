@@ -100,7 +100,8 @@ export const UsersPage = () => {
 
 
     const getData = () => {
-        let path = 'http://localhost:8080/user/1'
+        const userId = localStorage.getItem('user')
+        let path = 'http://localhost:8080/user/' + userId
         axios.get(path)
             .then(res => {
                 setProfileData(res.data)
@@ -108,7 +109,7 @@ export const UsersPage = () => {
     }
 
     const getReservationsData = () => {
-        let userId = 1
+        let userId = localStorage.getItem('user')
         let path = 'http://localhost:8080/reservation/user/week/' + userId
         axios.get(path)
             .then(res => {

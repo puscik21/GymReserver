@@ -22,7 +22,7 @@ export const MainPageRouter = () => {
                         <Switch>
                             <Route exact path="/main/trainers" component={App}/>
                             <Route exact path="/main/trainers/:id" component={App}/>
-                            <Route exact path="/main/user/:id" component={UsersPage}/>
+                            <Route exact path="/main/user" component={UsersPage}/>
                             <Route exact path="/main/about" component={About}/>
                             <Route path="/main/contact" component={Contact}/>
                             <Route path="/main/slides" component={Slides}/>

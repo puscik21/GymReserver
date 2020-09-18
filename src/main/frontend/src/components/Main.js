@@ -1,38 +1,17 @@
-import React from 'react';
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import App from "./App";
-import {About} from "./About";
-import {Contact} from "./Contact";
-import Slides from "./Slides";
-import {NoMatch} from "./NoMatch";
-import Footer from "./Footer";
-import {Layout} from "./Layout";
-import {Jumbotron} from "./Jumbotron";
-import {NavigationBar} from "./NavigationBar";
-import {UsersPage} from "./UsersPage";
+import React, {useState} from 'react';
+import {MainPageRouter} from "./MainPageRouter";
+import {Redirector} from "./Redirector";
 
 function Main() {
-    return(
-        <React.StrictMode>
-            <React.Fragment>
-                <NavigationBar />
-                <Jumbotron />
-                <Layout>
-                    <Router>
-                        <Switch>
-                            <Route exact path="/main/trainers" component={App} />
-                            <Route exact path="/main/trainers/:id" component={App} />
-                            <Route exact path="/main/user/:id" component={UsersPage} />
-                            <Route exact path="/main/about" component={About} />
-                            <Route path="/main/contact" component={Contact} />
-                            <Route path="/main/slides" component={Slides} />
-                            <Route component={NoMatch} />
-                        </Switch>
-                    </Router>
-                </Layout>
-                <Footer />
-            </React.Fragment>
-        </React.StrictMode>
-    );
+    const [user, setUser] = useState(localStorage.getItem('user'))
+
+    if (user === null || user === "null") {
+        return (<Redirector/>)
+    } else {
+        return (
+            <MainPageRouter/>
+        );
+    }
 }
+
 export default Main

@@ -2,8 +2,7 @@ import React from "react";
 import { Button, Nav, Navbar } from 'react-bootstrap'
 import styled from 'styled-components'
 
-function Cover() {
-    const Styles = styled.div `
+const Styles = styled.div`
     
     /* Links */
     a,
@@ -115,6 +114,7 @@ function Cover() {
   }
 `;
 
+function Cover() {
     return (
         <Styles>
             <body className="text-center">
@@ -132,7 +132,8 @@ function Cover() {
 
                     <main className="inner cover">
                         <h1 className="cover-heading">Cover your page.</h1>
-                        <p className="lead">Cover is a one-page template for building simple and beautiful home pages. Download,
+                        <p className="lead">Cover is a one-page template for building simple and beautiful home pages.
+                            Download,
                             edit the text, and add your own fullscreen background photo to make it your own.</p>
                         <p className="lead">
                             <Button variant="light">

@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Cover from "./components/Cover";
 import Main from "./components/Main";
 import {NoMatch} from "./components/NoMatch";
+import LoginPage from "./components/LoginPage";
 
 ReactDOM.render(
     <React.StrictMode>
@@ -13,6 +14,7 @@ ReactDOM.render(
             <Router>
                 <Switch>
                     <Route exact path="/" component={Cover} />
+                    <Route exact path="/login" component={LoginPage} />
                     <Route path="/main" component={Main} />
                     <Route component={NoMatch} />
                 </Switch>

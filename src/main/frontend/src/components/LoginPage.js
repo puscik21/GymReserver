@@ -12,6 +12,7 @@ import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from 'axios'
 import {Redirect} from "react-router-dom";
+import {Alert} from "@material-ui/lab";
 
 function Copyright() {
     return (
@@ -51,6 +52,7 @@ export default function LoginPage() {
     const [login, setLogin] = useState("")
     const [password, setPassword] = useState("")
     const [redirect, setRedirect] = useState(false)
+    const [showSubmitError, setShowSubmitError] = useState(false)
 
     const handleLogin = (event) => {
         event.preventDefault()
@@ -65,9 +67,16 @@ export default function LoginPage() {
                     setRedirect(true)
                 }
             }).catch((res) => {
-            console.log('Login error')
             console.log(res)
+            setShowSubmitError(true)
         })
+    }
+
+    const ResultMessage = () => {
+        setTimeout(() => {
+            setShowSubmitError(false)
+        }, 3000)
+        return <Alert style={{marginTop: '2em'}} variant="filled" severity="error">Error while logging in!</Alert>
     }
 
     if (redirect) {
@@ -130,6 +139,7 @@ export default function LoginPage() {
                 <Box mt={8}>
                     <Copyright/>
                 </Box>
+                {showSubmitError ? <ResultMessage/> : null}
             </Container>
         )
     }

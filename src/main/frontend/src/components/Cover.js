@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Nav, Navbar } from 'react-bootstrap'
+import {Button, Nav, Navbar} from 'react-bootstrap'
 import styled from 'styled-components'
 
 const Styles = styled.div`
@@ -118,38 +118,38 @@ function Cover() {
     return (
         <Styles>
             <body className="text-center">
-                <div className="cover-container d-flex h-100 p-3 mx-auto flex-column">
-                    <header className="masthead mb-auto">
-                        <div className="inner">
-                            <h3 className="masthead-brand">Cover</h3>
-                            <nav className="nav nav-masthead justify-content-center">
-                                <a className="nav-link active" href="#">Home</a>
-                                <a className="nav-link" href="#">Features</a>
-                                <a className="nav-link" href="#">Contact</a>
-                            </nav>
-                        </div>
-                    </header>
+            <div className="cover-container d-flex h-100 p-3 mx-auto flex-column">
+                <header className="masthead mb-auto">
+                    <div className="inner">
+                        <h3 className="masthead-brand">Cover</h3>
+                        <nav className="nav nav-masthead justify-content-center">
+                            <a className="nav-link active" href="#">Home</a>
+                            <a className="nav-link" href="#">Features</a>
+                            <a className="nav-link" href="#">Contact</a>
+                        </nav>
+                    </div>
+                </header>
 
-                    <main className="inner cover">
-                        <h1 className="cover-heading">Cover your page.</h1>
-                        <p className="lead">Cover is a one-page template for building simple and beautiful home pages.
-                            Download,
-                            edit the text, and add your own fullscreen background photo to make it your own.</p>
-                        <p className="lead">
-                            <Button variant="light">
-                                <Nav.Link href="/main/trainers" style={{color: '#333', fontWeight: '500'}}>Home</Nav.Link>
-                            </Button>
-                        </p>
-                    </main>
+                <main className="inner cover">
+                    <h1 className="cover-heading">Cover your page.</h1>
+                    <p className="lead">Really nice cover page. Actually I dont need it here but I think it looks pretty
+                        good. Cover is a one-page template for building simple and beautiful home pages.</p>
+                    <p className="lead">
+                        <Button variant="light">
+                            <Nav.Link href="/main/trainers" style={{color: '#333', fontWeight: '500'}}>Home</Nav.Link>
+                        </Button>
+                    </p>
+                </main>
 
-                    <footer className="mastfoot mt-auto">
-                        <div className="inner">
-                            <p>Nice cover page took from <a href="https://getbootstrap.com/">Bootstrap</a> website.</p>
-                        </div>
-                    </footer>
-                </div>
+                <footer className="mastfoot mt-auto">
+                    <div className="inner">
+                        <p>Nice cover page took from <a href="https://getbootstrap.com/">Bootstrap</a> website.</p>
+                    </div>
+                </footer>
+            </div>
             </body>
         </Styles>
     )
 }
+
 export default Cover

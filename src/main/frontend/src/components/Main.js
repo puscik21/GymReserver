@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {MainPageRouter} from "./MainPageRouter";
 import {Redirector} from "./Redirector";
+import Footer from "./Footer";
 
 function Main() {
     const [user, setUser] = useState(localStorage.getItem('user'))
@@ -9,7 +10,10 @@ function Main() {
         return (<Redirector/>)
     } else {
         return (
-            <MainPageRouter/>
+            <div>
+                <MainPageRouter/>
+                <Footer/>
+            </div>
         );
     }
 }

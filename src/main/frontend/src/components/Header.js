@@ -12,5 +12,6 @@ const headerStyle = {
     background:'#333333',
     color:'#ffffff',
     textAlign:'center',
-    padding:'10px'
+    padding:'10px',
+    minWidth: '150px'
 }

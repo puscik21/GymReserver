@@ -1,19 +1,13 @@
 import React from 'react'
 import {Container} from 'react-bootstrap'
-import backgroundImage from "../assets/backgroundImage.jpg";
 
 function Footer() {
 
     const footerStyle = {
-        // position: 'relative',
-        // bottom: '0',
-        position: 'absolute',
+        bottom: '0',
         left: 0,
-        right: 0,
-        marginBottom: '0',
-        marginLeft: '0',
-        marginRight: '0',
-        paddingBottom: '0'
+        position: 'absolute',
+        width: '100%'
     }
 
     return (

@@ -8,7 +8,6 @@ import {UsersPage} from "./UsersPage";
 import {About} from "./About";
 import {Contact} from "./Contact";
 import {NoMatch} from "./NoMatch";
-import Footer from "./Footer";
 
 export const MainPageRouter = () => {
     return (
@@ -28,7 +27,6 @@ export const MainPageRouter = () => {
                         </Switch>
                     </Router>
                 </Layout>
-                <Footer/>
             </React.Fragment>
         </React.StrictMode>
     )

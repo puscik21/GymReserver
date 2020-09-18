@@ -1,7 +1,7 @@
 import React from 'react'
 import { Jumbotron as Jumbo, Container } from 'react-bootstrap'
 import styled from 'styled-components'
-import backgroundImage from '../assets/backgroundImage.jpg'
+import backgroundImage from '../assets/GymReserverCover.jpg.jpg'
 
 const Styles = styled.div `
     .jumbo {
@@ -31,7 +31,7 @@ export const Jumbotron = () => (
             <div className="overlay">
                 <Container>
                     <h1>Welcome</h1>
-                    <p>Kasia jest super</p>
+                    <p>What are you waiting for?</p>
                 </Container>
             </div>
         </Jumbo>

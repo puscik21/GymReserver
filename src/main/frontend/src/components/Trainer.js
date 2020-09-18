@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from 'react'
-import {Link, useLocation, useParams} from "react-router-dom"
-import {Form, InputGroup, FormControl, Button, Container, Jumbotron, Alert} from 'react-bootstrap'
+import React from 'react'
+import {Link} from "react-router-dom"
+import {Container, Jumbotron, Col, Image, Row} from 'react-bootstrap'
 import Header from "./Header";
 import styled from 'styled-components'
 
@@ -20,18 +20,31 @@ const Styles = styled.div`
 
 function Trainer(props) {
     const {trainerId, name, surname, password, createDate, lastLogin} = props
-    let location = useLocation()
-    const {id} = useParams()
     const trainerLink = "/main/trainers/" + trainerId
+
+    const getAvatarOption = (name, value) => {
+        return "&options[" + name + "][]=" + value
+    }
+
+    const avatarLink = "https://avatars.dicebear.com/api/avataaars/" + trainerId + ".svg?options[accessoriesChance]=0&options[top][]=shortHair" +
+        getAvatarOption("mouth", "smile")
 
     return (
         <Styles>
             <Link to={trainerLink} className="link">
                 <Jumbotron className="jumbo">
                     <Container>
-                        <Header title={name}/>
-                        <p>{surname}</p>
-                        <p>{createDate}</p>
+                        <Row>
+                            <Col lg={5} md={12} xs={12}>
+                                <Image
+                                    src={avatarLink}
+                                    height="150px" roundedCircle/>
+                            </Col>
+                            <Col lg={7} md={12} xs={12}>
+                                <Header title={name}/>
+                                <Header title={surname}/>
+                            </Col>
+                        </Row>
                     </Container>
                 </Jumbotron>
             </Link>

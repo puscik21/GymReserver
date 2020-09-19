@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -6,7 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import BuildOutlinedIcon from '@material-ui/icons/BuildOutlined';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -47,41 +47,74 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export const SignUpPage = () => {
+export const AdminPage = () => {
     const classes = useStyles();
     const [name, setName] = useState("")
     const [surname, setSurname] = useState("")
     const [login, setLogin] = useState("")
     const [password, setPassword] = useState("")
     const [redirect, setRedirect] = useState(false)
-    const [showSubmitError, setShowSubmitError] = useState(false)
+    const [showSubmitMessage, setShowSubmitMessage] = useState(false)
+    const [submitMessage, setSubmitMessage] = useState('success')
+
+    useEffect(() => {
+        const userId = localStorage.getItem('user')
+        if (userId === null || userId === "null") {
+            setRedirect(true)
+        }
+        axios.get('http://localhost:8080/user/' + userId)
+            .then(res => {
+                console.log(res)
+                if (res.data === null || res.data === '') {
+                    setRedirect(true)
+                } else {
+                    if (res.data.login !== 'admin') {
+                        setRedirect(true)
+                    }
+                }
+            })
+            .catch(res => {
+                console.log('Error while checking admin')
+                console.log(res)
+            })
+    }, [])
 
     const handleSignUp = (event) => {
         event.preventDefault()
-        const userCredentials = {
+        const trainerCredentials = {
             name: name,
             surname: surname,
             login: login,
             password: password
         }
-        axios.post('http://localhost:8080/user/', userCredentials)
+        axios.post('http://localhost:8080/trainer/', trainerCredentials)
             .then(res => {
                 if (res.status === 200) {
-                    localStorage.setItem('user', res.data);
-                    setRedirect(true)
+                    // localStorage.setItem('user', res.data);
+                    // setRedirect(true)
+                    setShowSubmitMessage(true)
+                    setSubmitMessage('success')
                 }
             }).catch((res) => {
             console.log(res)
-            setShowSubmitError(true)
+            setShowSubmitMessage(true)
+            setSubmitMessage('fail')
         })
     }
 
     const ResultMessage = () => {
         setTimeout(() => {
-            setShowSubmitError(false)
+            setShowSubmitMessage(false)
         }, 3000)
-        return <Alert style={{marginTop: '2em'}} variant="filled" severity="error">Error while signing up!</Alert>
+        if (submitMessage === 'success') {
+            return <Alert style={{marginTop: '2em'}} variant="filled" severity="success">Successful trainer
+                registration!</Alert>
+        } else if (submitMessage === 'fail') {
+            return <Alert style={{marginTop: '2em'}} variant="filled" severity="error">Error while adding
+                trainer!</Alert>
+        }
     }
+
 
     if (redirect) {
         return <Redirect to='/main/trainers'/>
@@ -91,10 +124,10 @@ export const SignUpPage = () => {
                 <CssBaseline/>
                 <div className={classes.paper}>
                     <Avatar className={classes.avatar}>
-                        <LockOutlinedIcon/>
+                        <BuildOutlinedIcon/>
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Sign up
+                        Add new trainers to the gym!
                     </Typography>
                     <form className={classes.form} noValidate onSubmit={handleSignUp}>
                         <Grid container spacing={2}>
@@ -156,12 +189,12 @@ export const SignUpPage = () => {
                             color="primary"
                             className={classes.submit}
                         >
-                            Sign Up
+                            Add trainer
                         </Button>
                         <Grid container justify="flex-end">
                             <Grid item>
-                                <Link href="/login" variant="body2">
-                                    Already have an account? Sign in
+                                <Link href="/main/trainers" variant="body2">
+                                    Move back to the website
                                 </Link>
                             </Grid>
                         </Grid>
@@ -170,7 +203,7 @@ export const SignUpPage = () => {
                 <Box mt={5}>
                     <Copyright/>
                 </Box>
-                {showSubmitError ? <ResultMessage/> : null}
+                {showSubmitMessage ? <ResultMessage/> : null}
             </Container>
         );
     }

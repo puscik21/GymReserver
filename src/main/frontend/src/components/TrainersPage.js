@@ -1,5 +1,4 @@
 import React, {useState, Component, useEffect} from 'react'
-import PropTypes from 'prop-types'
 import axios from 'axios'
 import Trainer from "./Trainer"
 import {Container, Row, Col} from "react-bootstrap"
@@ -68,18 +67,19 @@ export default function TrainersPage() {
             count++
         })
 
-        // TODO keys of rows - this can cause a bug if number of trainers > 4
+        let keyCounter = 0
         readyProfiles = rowArr.map(profile => {
+            keyCounter++
             if (profile.length === 2) {
                 return (
-                    <Row key={1}>
+                    <Row key={keyCounter}>
                         <Col>{profile[0]}</Col>
                         <Col>{profile[1]}</Col>
                     </Row>
                 )
             } else {
                 return (
-                    <Row key={2}>
+                    <Row key={keyCounter}>
                         <Col>{profile[0]}</Col>
                     </Row>
                 )

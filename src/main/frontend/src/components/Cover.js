@@ -131,7 +131,8 @@ function Cover() {
                 </header>
 
                 <main className="inner cover">
-                    <h1 className="cover-heading">Cover your page.</h1>
+                    <h1 className="cover-heading">GymReserver</h1>
+                    <h2>App for training registration</h2>
                     <p className="lead">Really nice cover page. Actually I dont need it here but I think it looks pretty
                         good. Cover is a one-page template for building simple and beautiful home pages.</p>
                     <p className="lead">
